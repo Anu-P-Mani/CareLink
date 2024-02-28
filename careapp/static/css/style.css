@@ -1,0 +1,44 @@
+.navbar {
+    height: 60px;
+    width: 100%;
+    background-color: #00A877;
+    
+    }
+    
+    #search{
+      width: 400px;
+      border-radius: 25px;
+      margin-left: 250px;
+    }
+    #f1{
+      text-decoration: none;
+      color: #FEBE10;
+    }
+    #l1{
+      margin-left: 140px;
+    }
+    #l2{
+        margin-left: 20px;
+    }
+    #l3{
+        margin-left: 20px;
+    }
+    body{
+        background-color: #e3f8e3;
+    }
+
+    /* user registration */
+    
+    #b3{
+        width: 220px;
+        background-color:#00A877 ;
+       color:white;
+       /* border-color: ; */
+       margin-left: 50px;
+       margin-top: 100px;
+      }
+      #b3:hover{
+        color:white;
+        background-color: #FEBE10;
+       box-shadow: 0 0 8px;
+      }
