@@ -11,6 +11,7 @@ class NurseBooking(models.Model):
     date = models.DateField()
     duration = models.IntegerField() 
     is_active = models.BooleanField(default=False, null=True)
+    # has_requested = models.BooleanField(default=False, null=True)
     
     def __str__(self):
         return self.user.username

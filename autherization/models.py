@@ -34,6 +34,7 @@ class Nurse(models.Model):
     is_available = models.BooleanField(default=True, null=True)
     name=models.CharField(max_length=100, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True,blank=True)
+    has_requested = models.BooleanField(default=False, null=True)
 
     def __str__(self):
         return self.user.username

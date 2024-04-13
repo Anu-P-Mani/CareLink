@@ -137,37 +137,66 @@ class NurseDetailView(View):
 
 
 
+# class CreateBookingView(View):
+#     def get(self, request, pk=None):
+#         form = BookingForm()
+#         return render(request, 'Nurse/booking.html', {'form': form})
+    
+#     def post(self, request, pk=None):
+        
+#         form = BookingForm(request.POST)
+#         if form.is_valid():
+#             date = form.cleaned_data['date']
+#             duration = form.cleaned_data['duration']
+#             user = request.user
+#             nurse = Nurse.objects.get(user__id=pk) if pk else None
+            
+#             try:
+#                 c_booking = NurseBooking.objects.filter(user=user, nurse=nurse).latest('date')
+#                 expiry_date = c_booking.date + relativedelta(days=30*duration)  
+#                 print(expiry_date,'===========')
+                
+#                 if date < expiry_date:
+#                     booking = NurseBooking.objects.create(user=user, nurse=nurse, date=date, duration=duration)
+#                     booking.has_requested = True
+#                     booking.save()
+#                     messages.success(request, 'Booking successful!')
+#                     return redirect('customerpanel')
+#                 else:
+#                     messages.error(request, 'Booking not permitted. Existing booking date is not before the new booking date.')
+#             except NurseBooking.DoesNotExist:
+#                 booking = NurseBooking.objects.create(user=user, nurse=nurse, date=date, duration=duration)
+#                 booking.save()
+#                 messages.success(request, 'Booking successful!')
+#                 return redirect('customerpanel')
+#         return render(request, 'Nurse/booking.html', {'form': form})
+
+
 class CreateBookingView(View):
     def get(self, request, pk=None):
         form = BookingForm()
         return render(request, 'Nurse/booking.html', {'form': form})
     
     def post(self, request, pk=None):
+        
         form = BookingForm(request.POST)
         if form.is_valid():
             date = form.cleaned_data['date']
             duration = form.cleaned_data['duration']
             user = request.user
             nurse = Nurse.objects.get(user__id=pk) if pk else None
-            
-            try:
-                c_booking = NurseBooking.objects.filter(user=user, nurse=nurse).latest('date')
-                expiry_date = c_booking.date + relativedelta(days=30*duration)  
-                print(expiry_date,'===========')
+            nurse.has_requested = True
+            nurse.save()
+
                 
-                if date < expiry_date:
-                    booking = NurseBooking.objects.create(user=user, nurse=nurse, date=date, duration=duration)
-                    booking.save()
-                    messages.success(request, 'Booking successful!')
-                    return redirect('customerpanel')
-                else:
-                    messages.error(request, 'Booking not permitted. Existing booking date is not before the new booking date.')
-            except NurseBooking.DoesNotExist:
-                booking = NurseBooking.objects.create(user=user, nurse=nurse, date=date, duration=duration)
-                booking.save()
-                messages.success(request, 'Booking successful!')
-                return redirect('customerpanel')
+            booking = NurseBooking.objects.create(user=user, nurse=nurse, date=date, duration=duration)
+            booking.save()
+            messages.success(request, 'Booking successful!')
+            return redirect('customerpanel')
+            
         return render(request, 'Nurse/booking.html', {'form': form})
+    
+
 
 def bookingsuccess(request):
     return render(request,"Nurse/bookingsuccess.html")
@@ -187,22 +216,24 @@ class NurseUserList(ListView):
        queryset = queryset.filter(nurse=self.request.user.id,is_active=False)
        return queryset
 
+ 
 
 
+def request_approval(request, id):
+    bookings = NurseBooking.objects.filter(user_id=id)
+    
+    for booking in bookings:
+        user_name = booking.user.username
+        user_email = booking.user.email
+        booking.is_active = True
+        booking.save()
 
-
-
-def request_approval(request,id):
-    user = NurseBooking.objects.get(user_id=id) 
-    user_name = user.user.username
-    user_email = user.user.email
-    user.is_active = True
-    user.save()
-    # nurse_id = request.user
+    # Update nurse availability
     nurse = Nurse.objects.get(user=request.user)
     nurse.is_available = False
-    
     nurse.save()
+
+    # Send email to user
     subject = "Your Home Nurse Request Has Been Approved"
     message = (
         f"Dear {user_name},\n\n"
@@ -216,7 +247,9 @@ def request_approval(request,id):
     email_from = "carelink30@gmail.com"
     email_to = user_email
     send_mail(subject, message, email_from, [email_to])
-    return redirect('nurse_profile')  
+
+    return redirect('nursepanel')
+
 
 
 

@@ -46,13 +46,22 @@
             <p class="card-text">Bio: {{ nurse.profile }}</p>
 
             {% if nurse.is_available %}
-            <p id="available" class="card-text">Available</p>
+
+                {% if nurse.has_requested %}
+
+                <p id="not_available" class="card-text">Already requested</p>
+
+                {% else %}
+
+                <p id="available" class="card-text">Available</p>
+
+                <a href="{% url 'booking' nurse.user.id %}" class="btn btn-primary">Book nurse</a>
+
+                {% endif %}
+
             {% else %}
             <p id="not_available" class="card-text">Not available</p>
             {% endif %}
-
-            
-                <a href="{% url 'booking' nurse.user.id %}" class="btn btn-primary">Book nurse</a>
             
         </div>
       </div>

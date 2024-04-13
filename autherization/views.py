@@ -169,7 +169,7 @@ def forgot_password(request):
             if user.email == email and user.username == username:
                 user_id = user.id
                 subject = "Password reset"
-                message = f"Hi {username},\n\nSomeone has requested a new password for the following account on CareLink.\nIf you didn't make this request, please ignore this email.\nTo reset your password, Click the following link: http://127.0.0.1:8000/autherization/change_password/{user_id}.\n\nThanks for using CareLink."
+                message = f"Hi {username},\n\nSomeone has requested a new password for the following account on CareLink.\nIf you didn't make this request, please ignore this email.\nTo reset your password, Click the following link: http://127.0.0.1:8000/change_password/{user_id}.\n\nThanks for using CareLink."
                 email_from = "carelink30@gmail.com"
                 email_to = email
                 send_mail(subject, message, email_from, [email_to])
