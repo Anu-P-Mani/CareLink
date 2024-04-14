@@ -13,6 +13,7 @@ from django.core.validators import RegexValidator
 from django.views import View
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
+from nurse.models import *
 
 
 def customer_signup(request):
@@ -153,10 +154,7 @@ def admin_login(request):
 
 
 
-@login_required
-@never_cache
-def admin_panel_view(request):
-    return render(request, "autherization/admin_panel.html")
+
 
 
 def forgot_password(request):
@@ -265,3 +263,12 @@ def add_feedback(request):
         form = FeedbackForm()
 
     return render(request, 'autherization/add_feedback.html', {'form': form})
+
+
+def feedback_list(request):
+    feedbacks = Feedback.objects.all()[:4]
+    return render(request, "autherization/customerpanel.html", {'feedbacks': feedbacks})
+        
+def feedback_list_index(request):
+    feedbacks = Feedback.objects.all()[:4]
+    return render(request, "autherization/index.html", {'feedbacks': feedbacks})        

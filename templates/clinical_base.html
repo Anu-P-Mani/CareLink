@@ -92,15 +92,25 @@
                 </li> -->
                 <!-- <li><a href="{% url 'aboutus' %}">About</a></li> -->
                 <!-- <li><a href="contact.html">Contact</a></li> -->
-                <li><a href="{% url 'logout_view' %}">Logout</a></li>
+                <li class="has-children">
+                  <a href=""><i class="fa-solid fa-user"></i> {{ request.user.username }}</a>
+                  <ul class="dropdown">
+                    <li><a href="{% url 'customer_profile' %}">View profile</a></li>
+                    <li><a href="{% url 'logout_view' %}">Logout</a></li>
+                
+                </ul>
+              </li>
               </ul>
             </nav>
           </div>
           <div class="icons">
             <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-            <a href="cart.html" class="icons-btn d-inline-block bag">
+            <a href="{% url 'cart_view' %}" class="icons-btn d-inline-block heart" style="color: red;">
+              <span class="icon-heart"></span>
+          </a>
+            <a href="{% url 'med_cart_view' %}" class="icons-btn d-inline-block bag">
               <span class="icon-shopping-bag"></span>
-              <span class="number">2</span>
+              <span class="number">{{count}}</span>
             </a>
             <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
                 class="icon-menu"></span></a>
@@ -124,10 +134,7 @@
               <!-- <li class="nav-item">
                 <a class="nav-link" href="#" style="margin-left: 10px; color:#17a2b8;">Seller</a>
               </li> -->
-              <li class="nav-item">
-                <a id="nav-link3" class="nav-link" href="#"><i class="fa-solid fa-user"></i> {{ request.user.username }}</a>
-
-              </li>
+              
             </ul>
           </div>
         </div>

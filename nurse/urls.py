@@ -15,5 +15,6 @@ urlpatterns = [
     path("Nurse/user_approval/<int:id>/", request_approval, name="user_approval"),
     path('Nurse/update/<int:pk>', NurseProfileUpdateView.as_view() , name="changeprofile"),
     path('nurse/delete/<int:id>', nurse_delete, name='delete_nurse_profile'),
+    path('report/', ReportCreateView.as_view(), name="report"),
 
     ]

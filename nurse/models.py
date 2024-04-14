@@ -21,7 +21,6 @@ class NurseBooking(models.Model):
 
 
 class Report(models.Model):
-    nurse = models.ForeignKey(Nurse, on_delete=models.CASCADE)
-    user = models.ForeignKey(NormalUser, on_delete=models.CASCADE)  # Assuming this is the user who is generating the report
+    nurse = models.ForeignKey(NurseBooking, on_delete=models.CASCADE)
     date = models.DateField()
     details = models.TextField()

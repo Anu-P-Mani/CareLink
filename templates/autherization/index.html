@@ -93,10 +93,16 @@
           </div>
           <div class="icons">
             <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+            <a href="{% url 'cart_view' %}" class="icons-btn d-inline-block heart" style="color: red;">
+              <span class="icon-heart"></span>
+          </a>
             <a href="{% url 'med_cart_view' %}" class="icons-btn d-inline-block bag">
+
               <span class="icon-shopping-bag"></span>
               <span class="number">{{count}}</span>
             </a>
+            
+
             <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
                 class="icon-menu"></span></a>
           </div>
@@ -318,7 +324,6 @@
 
               <div class="testimony">
                 <blockquote>
-                  <img src="{% static 'images/person_1.jpg' %}" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
                   <p>&ldquo;Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo omnis voluptatem consectetur
                     quam tempore obcaecati maiores voluptate aspernatur iusto eveniet, placeat ab quod tenetur ducimus.
                     Minus ratione sit quaerat unde.&rdquo;</p>
@@ -329,7 +334,6 @@
 
               <div class="testimony">
                 <blockquote>
-                  <img src="{% static 'images/person_2.jpg' %}" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
                   <p>&ldquo;Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo omnis voluptatem consectetur
                     quam tempore
                     obcaecati maiores voluptate aspernatur iusto eveniet, placeat ab quod tenetur ducimus. Minus ratione
@@ -342,7 +346,6 @@
 
               <div class="testimony">
                 <blockquote>
-                  <img src="{% static 'images/person_3.jpg' %}" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
                   <p>&ldquo;Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo omnis voluptatem consectetur
                     quam tempore
                     obcaecati maiores voluptate aspernatur iusto eveniet, placeat ab quod tenetur ducimus. Minus ratione
@@ -355,7 +358,6 @@
 
               <div class="testimony">
                 <blockquote>
-                  <img src="{% static 'images/person_4.jpg' %}" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
                   <p>&ldquo;Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo omnis voluptatem consectetur
                     quam tempore
                     obcaecati maiores voluptate aspernatur iusto eveniet, placeat ab quod tenetur ducimus. Minus ratione

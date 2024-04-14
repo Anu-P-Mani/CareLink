@@ -93,6 +93,9 @@
           </div>
           <div class="icons">
             <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+            <a href="{% url 'cart_view' %}" class="icons-btn d-inline-block heart" style="color: red;">
+              <span class="icon-heart"></span>
+          </a>
             <a href="{% url 'med_cart_view' %}" class="icons-btn d-inline-block bag">
               <span class="icon-shopping-bag"></span>
               <span class="number">{{count}}</span>

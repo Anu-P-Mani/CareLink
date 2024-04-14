@@ -1,4 +1,4 @@
-{% extends 'nursebase.html' %}
+{% extends 'admin_base.html' %}
 {% block content %}
 <style>
     h1{
@@ -14,29 +14,30 @@
     <center>
     <h1>Requset list</h1>
   </center>
-  {% if nurse_user %}
+  {% if nurses %}
       <table align="center" class="table table-hover" style="width: 80%;">
         <thead>
           <tr class="table-active">
+            <th scope="col">Nurse name</th>
             <th scope="col">User Name</th>
             <th scope="col">Date selected</th>
             <th scope="col">Duration</th>
-            <th scope="col">Approve</th>
-            
+           
             
           </tr>
         </thead>
         
         <tbody>
-          {% for nurse in nurse_user %}
+          {% for nurse in nurses %}
         
           <tr>
         
+            <td>{{nurse.nurse}}</td>
             <td>{{nurse.user}}</td>
             
             <td>{{nurse.date}}</td>
             <td>{{nurse.duration}} months</td>
-            <td><a href="{% url 'user_approval' nurse.user.id %}">approve</a></td>
+            
             
            </tr>
           

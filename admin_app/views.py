@@ -6,6 +6,8 @@ from django.conf import settings
 from autherization.models import *
 from django.views.generic import CreateView,FormView,ListView,UpdateView,DetailView,TemplateView,View
 from nurse.models import *
+from django.views.decorators.cache import never_cache
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def device_list(request):
@@ -74,4 +76,19 @@ def nurse_approval(request,id):
     email_to = user_email
     send_mail(subject, message, email_from, [email_to])
     return redirect('nurse_list')
+
+
+
+@login_required
+@never_cache
+def admin_panel_view(request):
+    nurses = NurseBooking.objects.filter(is_active=True)
+
+    return render(request, "admin/admin_panel.html", {'nurses': nurses})
+
+
+class FeedbackListView(ListView):
+    model = Feedback
+    template_name = "admin/feedback_list.html"
+    context_object_name = 'feedbacks'
 

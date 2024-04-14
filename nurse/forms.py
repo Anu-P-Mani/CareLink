@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 
+
 class BookingForm(forms.ModelForm):
     class Meta:
         model = NurseBooking
@@ -24,23 +25,9 @@ class BookingForm(forms.ModelForm):
 
 
         
-class ReportForm(forms.ModelForm):
-    class Meta:
-        model = Report
-        fields = ['user', 'date', 'details']  
 
 
 
-
-
-
-
-
-
-
-
-
-from .models import Nurse
 
 class NurseProfileUpdateForm(forms.ModelForm):
     email = forms.EmailField(label='Email', required=False)
@@ -65,3 +52,9 @@ class NurseProfileUpdateForm(forms.ModelForm):
         if commit:
             nurse.save()
         return nurse
+    
+
+class ReportForm(forms.ModelForm):
+    class Meta:
+        model = Report
+        fields = ['nurse', 'date', 'details']    

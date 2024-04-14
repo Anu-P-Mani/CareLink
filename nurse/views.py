@@ -135,43 +135,6 @@ class NurseDetailView(View):
 
 
 
-
-
-# class CreateBookingView(View):
-#     def get(self, request, pk=None):
-#         form = BookingForm()
-#         return render(request, 'Nurse/booking.html', {'form': form})
-    
-#     def post(self, request, pk=None):
-        
-#         form = BookingForm(request.POST)
-#         if form.is_valid():
-#             date = form.cleaned_data['date']
-#             duration = form.cleaned_data['duration']
-#             user = request.user
-#             nurse = Nurse.objects.get(user__id=pk) if pk else None
-            
-#             try:
-#                 c_booking = NurseBooking.objects.filter(user=user, nurse=nurse).latest('date')
-#                 expiry_date = c_booking.date + relativedelta(days=30*duration)  
-#                 print(expiry_date,'===========')
-                
-#                 if date < expiry_date:
-#                     booking = NurseBooking.objects.create(user=user, nurse=nurse, date=date, duration=duration)
-#                     booking.has_requested = True
-#                     booking.save()
-#                     messages.success(request, 'Booking successful!')
-#                     return redirect('customerpanel')
-#                 else:
-#                     messages.error(request, 'Booking not permitted. Existing booking date is not before the new booking date.')
-#             except NurseBooking.DoesNotExist:
-#                 booking = NurseBooking.objects.create(user=user, nurse=nurse, date=date, duration=duration)
-#                 booking.save()
-#                 messages.success(request, 'Booking successful!')
-#                 return redirect('customerpanel')
-#         return render(request, 'Nurse/booking.html', {'form': form})
-
-
 class CreateBookingView(View):
     def get(self, request, pk=None):
         form = BookingForm()
@@ -263,4 +226,17 @@ def nurse_delete(request, id):
     except NormalUser.DoesNotExist:
         print("Nurse profile does not exist.")  
         return redirect("index")
+
+
+
+class ReportCreateView(CreateView):
+    model = Report
+    fields = ['nurse', 'date', 'details']
+    template_name = 'Nurse/report.html'
+    success_url = 'success_url_name' 
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 

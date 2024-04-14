@@ -9,7 +9,6 @@ urlpatterns = [
     path('customerpanel/', customer_panel_view, name='customerpanel'),
     
     
-    path('adminpanel/', admin_panel_view, name="adminpanel"),
     
     
     path('base/', base),
@@ -26,6 +25,9 @@ urlpatterns = [
     path('customer_profile/', customer_profile, name="customer_profile"),
     path("customer_update/<int:id>/", customer_update, name="customer_update"),
     path("add_feedback", add_feedback, name="add_feedback"),
+    path("feedback_list/", feedback_list, name="feedback_list"),
+    path("feedback_list_index/", feedback_list_index, name="feedback_list_index"),
+
 
 
 
