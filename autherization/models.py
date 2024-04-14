@@ -48,3 +48,10 @@ class Shop(models.Model):
         return self.owner.username
 
 
+class Feedback(models.Model):
+    user = models.ForeignKey(NormalUser, on_delete=models.CASCADE)
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Feedback from {self.user.username} at {self.created_at}"

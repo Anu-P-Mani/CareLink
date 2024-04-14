@@ -106,4 +106,8 @@ class LoginForm(forms.ModelForm):
         model = Customer
         fields = "__all__"
 
+
+class FeedbackForm(forms.Form):
+    comment = forms.CharField(widget=forms.Textarea)        
+
     

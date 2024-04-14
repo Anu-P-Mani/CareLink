@@ -1,0 +1,61 @@
+{% extends 'base3.html' %}
+{% block content %}
+<style>
+    .Feedback {
+        max-width: 500px;
+        margin: 50px auto; 
+        padding: 20px;
+        background-color: aliceblue;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .Feedback h1 {
+        margin-bottom: 30px;
+        text-align: center;
+        color: #333;
+    }
+
+    .Feedback form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .Feedback form textarea {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 50px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+    }
+
+    .Feedback form button {
+        padding: 10px 20px;
+        background-color:#51eaea ;
+        border-color: #51eaea;
+        color: black;
+        /* border: none; */
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .Feedback form button:hover {
+        background: transparent;
+        color: #51eaea;
+        border-color: #51eaea;
+    }
+</style>
+
+<div class="Feedback">
+    <h1>Add Feedback</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

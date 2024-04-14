@@ -25,6 +25,7 @@ urlpatterns = [
     path('aboutus/', aboutus, name='aboutus'),
     path('customer_profile/', customer_profile, name="customer_profile"),
     path("customer_update/<int:id>/", customer_update, name="customer_update"),
+    path("add_feedback", add_feedback, name="add_feedback"),
 
 
 

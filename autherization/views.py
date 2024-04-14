@@ -247,3 +247,21 @@ def customer_update(request, id):
             return redirect('customer_profile' )
     
     return render(request, "autherization/customer_update.html", {'form': form})
+
+
+
+
+def add_feedback(request):
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            comment = form.cleaned_data['comment']
+            user = request.user
+            feedback = Feedback.objects.create(user=user, comment=comment)
+            feedback.save()
+            # return redirect('feedback_success')  # Redirect to a success page
+            return HttpResponse("success")
+    else:
+        form = FeedbackForm()
+
+    return render(request, 'autherization/add_feedback.html', {'form': form})
