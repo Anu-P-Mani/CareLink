@@ -27,10 +27,8 @@ urlpatterns = [
     
     path("add_feedback", add_feedback, name="add_feedback"),
 
-    # path("feedback_list/", feedback_list, name="feedback_list"),
-    # path("feedback_list_index/", feedback_list_index, name="feedback_list_index"),
+   
 
-    path("rough/", rough, name="rough"),
 
 
 

@@ -277,6 +277,4 @@ def add_feedback(request):
         
  
 
-def rough(request):
-    feedbacks = Feedback.objects.all()[:4]
-    return render(request, "autherization/rough.html", {'feedbacks': feedbacks})   
+ 
