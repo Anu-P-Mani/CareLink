@@ -1,0 +1,35 @@
+{% extends 'nursebase.html' %}
+{% block content %}
+    <!-- <h1>Create Report</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form> -->
+
+    <div class="container">
+        {% for work in works %}
+        <div class="row my-3">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-body">
+                      <h5 class=" text-dark fw-bolder">{{work.nurse.user.username}} services</h5>
+                     <div class="d-flex justify-content-between mt-3">
+                        <p class="card-text text-dark">
+                            Duration: {{work.duration}} 
+                          </p>
+                          <span class="text-dark ">Started Date:{{work.date}}</span>
+                     </div>
+                      <a href="{% url 'nurse_booking' work.id %}" class="btn btn-primary">Add Report</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    
+   
+{% endblock %}

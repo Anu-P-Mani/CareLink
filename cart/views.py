@@ -33,9 +33,6 @@ def add_to_cart(request, id):
         cart = Divicecart.objects.create(user=user, device=device,quantity=1)
         cart.save()
     
-    
-    
-    
     return redirect("cart_view")
 
 def cart_view(request):
@@ -68,14 +65,15 @@ def OrderForm(request):
         cart=Divicecart.objects.filter(user=user)
         total=0
         for i in cart:
+
+            df=DeviceInformation.objects.get(id=i.device)
+            print(df)
             total=total+i.quantity*i.device.price
-            obj=Order.objects.create(user=user,address=address,phone=phone,device=i.device,no_of_items=i.quantity,order_status="paid", total_price=total)
+            obj=Order.objects.create(user=user,address=address,phone=phone,device_id = i.device,no_of_items=i.quantity,order_status="paid", total_price=total)
             obj.save()
-            i.device.delete()
-        cart.delete()
         return redirect("order_confirm_view")
 
-    return render(request,"cart/orderform.html")
+    return render(request,"cart/order.html")
 
 
 def order_confirm_view(request):

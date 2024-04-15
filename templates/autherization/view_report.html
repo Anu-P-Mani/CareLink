@@ -1,0 +1,42 @@
+{% extends 'base3.html' %}
+{% block content %}
+<style>
+    .report-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+   
+    .report-card {
+        background-color: aliceblue; 
+        width: 75%; 
+        height: auto; 
+        margin-bottom: 20px;
+        transition: background-color 0.3s; 
+    }
+    .card-title{
+        color: red;
+    }
+    
+    .report-card:hover {
+        background-color: rgb(213, 235, 253); 
+    }
+</style>
+<div class="row mt-5">
+    <div class="col-md-12">
+        <div class="report-container">
+            <h2>Daily Report</h2> 
+            {% for report in reports %}
+            <div class="card report-card"> 
+                <div class="card-body">
+                    <!-- <h5 class="card-title">{{ report.user }}</h5> -->
+                    <p class="card-text">{{ report.details }}</p>
+                    <p class="card-text"><small class="text-muted">{{ report.date }}</small></p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

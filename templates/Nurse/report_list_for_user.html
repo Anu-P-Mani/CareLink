@@ -1,0 +1,22 @@
+{% extends 'base3.html' %}
+{% block content %}
+    
+
+    <div class="container">
+       
+       {% for report in reports %}
+       <div class="row my-3">
+       
+        <div class=" bg-light p-2 text-white rounded-pill" style="width: 100%;">
+            
+            <p class="text-dark">{{ report.details }}</p>
+            <p><small class="text-muted">{{ report.date }}</small></p>
+          </div>
+        
+       </div>
+       {% endfor %}
+    </div>
+    
+    
+   
+{% endblock %}

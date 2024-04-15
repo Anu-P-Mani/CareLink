@@ -15,6 +15,12 @@ urlpatterns = [
     path("Nurse/user_approval/<int:id>/", request_approval, name="user_approval"),
     path('Nurse/update/<int:pk>', NurseProfileUpdateView.as_view() , name="changeprofile"),
     path('nurse/delete/<int:id>', nurse_delete, name='delete_nurse_profile'),
-    path('report/', ReportCreateView.as_view(), name="report"),
+    path('report/', list_works, name="report"),
+    path('nurse/work/report/<int:pk>',nurse_reports,name='nurse_booking'),
+
+    path('report_for_user/', reports, name="report_for_user"),
+    path("view_report/<int:pk>", report_list, name="view_report"),
+
+
 
     ]

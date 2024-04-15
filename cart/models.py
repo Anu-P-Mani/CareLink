@@ -22,7 +22,7 @@ class Divicecart(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(NormalUser, on_delete=models.CASCADE)
-    device=models.ForeignKey(DeviceInformation,on_delete=models.CASCADE)
+    device_id=models.ForeignKey(DeviceInformation,on_delete=models.CASCADE)
 
     order_date = models.DateTimeField(auto_now_add=True)
     total_price = models.DecimalField(max_digits=12, decimal_places=2)

@@ -1,0 +1,33 @@
+{% extends 'base3.html' %}
+{% block content %}
+<body>
+    <div class="site-section">
+        <div class="container">
+          <div class="row">
+            <div class="title-section text-center col-12">
+              <h2 class="text-uppercase">Feedbacks</h2>
+            </div>
+          </div>
+    <div class="row">
+        <div class="col-md-12 block-3 products-wrap">
+            
+          <div class="nonloop-block-3 no-direction owl-carousel">
+            {% for feedback in feedbacks %}
+            <div class="testimony">
+              <blockquote>
+                <p>&ldquo;{{feedback.comment}}&rdquo;</p>
+              </blockquote>
+
+              <p>&mdash; {{feedback.user}}</p>
+            </div>
+
+            {% endfor %}
+
+          </div>
+          
+        </div>
+      </div>
+        </div>
+</body>
+{% endblock %}
+</html>

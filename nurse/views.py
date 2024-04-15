@@ -229,14 +229,111 @@ def nurse_delete(request, id):
 
 
 
-class ReportCreateView(CreateView):
-    model = Report
-    fields = ['nurse', 'date', 'details']
-    template_name = 'Nurse/report.html'
-    success_url = 'success_url_name' 
+# class ReportCreateView(CreateView):
+#     model = Report
+#     fields = [ 'details']    
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+#     template_name = 'Nurse/report.html'
+#     success_url = 'nursepanel' 
+
+#     def form_valid(self, form):
+#         # form.instance.user = self.request.user
+#         return super().form_valid(form)
+
+def list_works(request):
+    try:
+        works = NurseBooking.objects.filter(nurse__user = request.user).order_by('-created_at')
+    
+    except NurseBooking.DoesNotExist:
+        works = None  
+    except Exception as e:
+
+        print(e)
+        works = None
+
+    context= {
+        "works": works
+    }
+    return render(request,'Nurse/report.html',context)
 
 
+
+def nurse_reports(request, pk):
+    # Get the NurseBooking instance
+    booking = NurseBooking.objects.get(id=pk)
+    reports = Report.objects.filter(user = booking).order_by('-date')
+
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            # Create a new Report instance
+            report = form.save(commit=False)
+            report.user = booking
+            report.save()
+            return redirect('nurse_booking', pk=booking.id) 
+    else:
+        form = ReportForm()
+
+    context = {
+        'form': form,
+        'booking': booking,
+        'reports':reports
+    }
+    return render(request, 'Nurse/report_list.html', context)
+
+
+
+# class ReportList(ListView):
+#     model = Report
+#     template_name = 'autherization/view_report.html'
+#     context_object_name = "reports"
+
+#     def get_queryset(self):
+#     #    nurse=self.request.user
+#        queryset = super().get_queryset()
+
+#        queryset = queryset.filter(user=self.request.user.id).order_by('-date')
+       
+#        return queryset
+
+
+
+
+
+
+
+def reports(request):
+    try:
+        logged_in_user = NormalUser.objects.get(username=request.user.username)
+        
+        works = NurseBooking.objects.filter(user=logged_in_user).order_by('-created_at')
+    except NormalUser.DoesNotExist:
+        logged_in_user = None
+        works = None
+    except NurseBooking.DoesNotExist:
+        works = None
+    except Exception as e:
+        print(e)
+        works = None
+    context = {
+        "works": works, 
+        
+    }
+    return render(request, 'Nurse/report_for_user.html', context)
+
+
+
+def report_list(request, pk):
+    
+
+    booking = NurseBooking.objects.get(id=pk)
+    reports = Report.objects.filter(user = booking).order_by('-date')
+
+
+
+    context = {
+        
+        'booking': booking,
+        'reports':reports
+    }
+    return render(request, 'Nurse/report_list_for_user.html', context)

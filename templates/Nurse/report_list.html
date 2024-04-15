@@ -1,0 +1,31 @@
+{% extends 'nursebase.html' %}
+{% block content %}
+    <!-- <h1>Create Report</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form> -->
+
+    <div class="container">
+       <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Submit" class="btn btn-success" >
+       </form>
+       {% for report in reports %}
+       <div class="row my-3">
+       
+        <div class=" bg-light p-2 text-white rounded-pill" style="width: 100%;">
+            
+            <p class="text-dark">{{ report.details }}</p>
+            <p><small class="text-muted">{{ report.date }}</small></p>
+          </div>
+        
+       </div>
+       {% endfor %}
+    </div>
+    
+    
+   
+{% endblock %}

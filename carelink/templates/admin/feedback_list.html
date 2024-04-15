@@ -1,0 +1,42 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+<style>
+    .feedback-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+   
+    .feedback-card {
+        background-color: aliceblue; 
+        width: 75%; 
+        height: auto; 
+        margin-bottom: 20px;
+        transition: background-color 0.3s; 
+    }
+    .card-title{
+        color: red;
+    }
+    
+    .feedback-card:hover {
+        background-color: rgb(213, 235, 253); 
+    }
+</style>
+<div class="row mt-5">
+    <div class="col-md-12">
+        <div class="feedback-container">
+            <h2>Feedback</h2> 
+            {% for feedback in feedbacks %}
+            <div class="card feedback-card"> 
+                <div class="card-body">
+                    <h5 class="card-title">{{ feedback.user }}</h5>
+                    <p class="card-text">{{ feedback.comment }}</p>
+                    <p class="card-text"><small class="text-muted">{{ feedback.created_at }}</small></p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
