@@ -69,7 +69,6 @@ def shop_signup(request):
         form = ShopSignUpForm(request.POST)
         if form.is_valid():
             em = request.POST.get('email')
-            unm = request.POST.get('username')
             form.save()
             subject = "Welcome to CareLink!"
             message = (
@@ -196,7 +195,7 @@ def change_password(request, id):
         if p1 == p2:
             a.set_password(p1)
             a.save()
-            msg = 'Password Changed'
+            msg = 'Password Changed!'
             return render(request, 'autherization/success.html', {'msg': msg})
         else:
             msg = 'Sorry something went wrong!'
