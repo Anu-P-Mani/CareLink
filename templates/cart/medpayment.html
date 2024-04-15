@@ -2,8 +2,12 @@
 {% extends 'base3.html' %}
 {% block content %}
 
-
-<div class="container">
+<style>
+     body{
+          background-color: azure;
+     }
+</style>
+<div class="container mt-5 mb-5">
      <h3 class="text-center text-success">{{msg}}</h3>
      <h3 class="text-center text-success">Thank you</h3>
      <p class="text-center"><a href="{% url 'listmedicines' %}"> continue shopping</p>

@@ -66,11 +66,11 @@ def OrderForm(request):
         total=0
         for i in cart:
 
-            df=DeviceInformation.objects.get(id=i.device)
-            print(df)
+            
             total=total+i.quantity*i.device.price
             obj=Order.objects.create(user=user,address=address,phone=phone,device_id = i.device,no_of_items=i.quantity,order_status="paid", total_price=total)
             obj.save()
+        cart.delete()    
         return redirect("order_confirm_view")
 
     return render(request,"cart/order.html")
@@ -78,11 +78,6 @@ def OrderForm(request):
 
 def order_confirm_view(request):
     return render(request, "cart/order_confirm.html")
-
-
-
-
-
 
 
 @login_required
