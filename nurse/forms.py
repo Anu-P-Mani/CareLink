@@ -58,6 +58,9 @@ class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
         fields = ['details']
+        labels = {
+            'details': 'Report',
+        }
         widgets = {
             'details': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter daily report here!'}),
         }

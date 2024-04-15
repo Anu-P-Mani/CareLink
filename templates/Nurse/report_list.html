@@ -6,24 +6,50 @@
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Submit</button>
     </form> -->
-
-    <div class="container">
+    <style>
+        .report-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+       
+        .report-card {
+            background-color: aliceblue; 
+            width: 75%; 
+            height: auto; 
+            margin-bottom: 20px;
+            transition: background-color 0.3s; 
+        }
+        .card-title{
+            color: red;
+        }
+        
+        .report-card:hover {
+            background-color: rgb(213, 235, 253); 
+        }
+    </style>
+    <div class="container mt-5 mb-5">
        <form action="" method="POST">
         {% csrf_token %}
         {{form.as_p}}
         <input type="submit" value="Submit" class="btn btn-success" >
        </form>
-       {% for report in reports %}
-       <div class="row my-3">
-       
-        <div class=" bg-light p-2 text-white rounded-pill" style="width: 100%;">
-            
-            <p class="text-dark">{{ report.details }}</p>
-            <p><small class="text-muted">{{ report.date }}</small></p>
-          </div>
-        
-       </div>
-       {% endfor %}
+       <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="report-container">
+                <h2 class="heading mb-5">Daily reports</h2> 
+                {% for report in reports %}
+                    <div class="card report-card"> 
+                    <div class="card-body">
+                        <p class="card-text">{{ report.details }}</p>
+                        <p class="card-text"><small class="text-muted">{{ report.date }}</small></p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     </div>
     
     
