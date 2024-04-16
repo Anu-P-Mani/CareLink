@@ -47,7 +47,7 @@ def device_display(request, id):
 
 
 def DeviceDetails(request, id):
-    device_info = DeviceInformation.objects.filter(id=id).order_by('-created_at')
+    device_info = DeviceInformation.objects.filter(id=id)
     return render(request, "clinical_devices/detail_device.html", {"devices": device_info})
 
 def device_delete(request, id):
