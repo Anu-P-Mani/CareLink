@@ -20,6 +20,7 @@ urlpatterns = [
 
     path('report_for_user/', reports, name="report_for_user"),
     path("view_report/<int:pk>", report_list, name="view_report"),
+    path("terms_and_conditions/", terms_and_coditions, name="terms_and_coditions"),
 
 
 

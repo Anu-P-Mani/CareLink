@@ -124,39 +124,7 @@ def remove_cart_item(request, id):
     cart_item.delete()
 
     return redirect('med_cart_view')
-#
-# def MedorderForm(request):
-#     if(request.method=="POST"):
-#         address=request.POST['address']
-#         phone=request.POST['phone']
-#         acc_number = request.POST['Acc_number']
-#         user=request.user
-#         cart=Medcart.objects.filter(user=user)
-#         total=0
-#         for i in cart:
-#             total=total+i.quantity*i.medicine.price
-#
-#         acct = Account.objects.get(accnumber=acc_number)
-#
-#         if (acct.balance > total):
-#             acct.balance = acct.balance - total
-#             acct.save()
-#
-#             for i in cart:
-#                 obj=MedicineOrder.objects.create(user=user,address=address,phone=phone,medicine=i.medicine,no_of_items=i.quantity,order_status="paid", total_price=total)
-#                 obj.save()
-#                 i.medicine.quanity_availble -= i.quantity
-#                 i.medicine.save()
-#
-#             cart.delete()
-#             msg='order placeed succusfully"'
-#             return render(request, 'cart/medpayment.html', {'msg': msg})
-#
-#         else:
-#             msg = "insufficiant amount you cant order"
-#             return render(request, 'cart/medpayment.html', {'msg': msg})
-#
-#     return render(request,"cart/orderform.html")
+
 
 
 def MedorderForm(request):
@@ -228,3 +196,5 @@ def itemcart_remove(request,id):
     except:
         pass
     return redirect('med_cart_view')
+
+

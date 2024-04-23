@@ -1,0 +1,47 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+      <div class="container mt-5 mb-5">
+          <center>
+          <h1>List of Nurses</h1>
+        </center>
+        {% if nurses %}
+            <table align="center" class="table table-hover" style="width: 80%;">
+              <thead>
+                <tr class="table-active">
+                  <th scope="col">Nurse name</th>
+                  <th scope="col">License Number</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Profile</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Phone</th>
+                  
+                  
+                </tr>
+              </thead>
+              
+              <tbody>
+                {% for nurse in nurses %}
+              
+                <tr>
+              
+                  <td>{{nurse.name}}</td>
+                  <td>{{nurse.license_number}}</td>
+                  {% if nurse.image %}
+                  <td><img src="{{nurse.image.url}}" alt="Image" style="height: 100px;width: 100px;"></td>
+                  {% endif %}
+                  <td>{{nurse.profile}}</td>
+                  <td>{{nurse.address}}</td>
+                  <td>{{nurse.phone}}</td>
+                 </tr>
+                
+              </tbody>
+              
+              
+            {% endfor %}
+            </table>
+            {% else %}
+              <p>No nurses available.</p>
+            {% endif %}
+          </div>
+    
+{% endblock %}

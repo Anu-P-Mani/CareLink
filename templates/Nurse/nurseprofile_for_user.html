@@ -44,6 +44,15 @@
             <p class="card-text">Address: {{ nurse.address }}</p>
             <p class="card-text">Phone: {{ nurse.phone }}</p>
             <p class="card-text">Bio: {{ nurse.profile }}</p>
+            
+            <!-- Checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1"><a href="{% url 'terms_and_coditions' %}">Terms and Conditions</a></label>
+                
+            </div>
+
+            
 
             {% if nurse.is_available %}
 
@@ -55,7 +64,7 @@
 
                 <p id="available" class="card-text">Available</p>
 
-                <a href="{% url 'booking' nurse.user.id %}" class="btn btn-primary">Book nurse</a>
+                <a href="{% url 'booking' nurse.user.id %}" class="btn btn-primary" id="bookButton">Book nurse</a>
 
                 {% endif %}
 
@@ -68,5 +77,15 @@
     </div>
   </div>
 </div>
+
+<script>
+    // Validate checkbox before form submission
+    document.getElementById('bookButton').addEventListener('click', function(event) {
+        if (!document.getElementById('exampleCheck1').checked) {
+            alert('Please check the checkbox before booking.');
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+</script>
 
 {% endblock %}

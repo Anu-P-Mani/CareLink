@@ -11,4 +11,8 @@ urlpatterns = [
     path("nurse_approval/<int:id>/", nurse_approval, name="nurse_approval"),
     path("feedback_list/", FeedbackListView.as_view(), name="feedback_list"),
 
+    path("removenurse/<int:pk>/",delete_nurse, name="removenurse"),
+    path("listnurse/",  Listapprovednurse.as_view(), name="listnurse"),
+
+
 ]

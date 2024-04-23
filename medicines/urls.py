@@ -31,9 +31,6 @@ urlpatterns = [
     path('nutrition/',  NutritionView.as_view(), name='nutrition'),
     path('nutrition_detail/<int:pk>/',NutritionDetailView.as_view(), name="nutrition_detail"),
 
-    path('diabetes/',  DiabetesView.as_view(), name='diabetes'),
-    path('diabetes_detail/<int:pk>/',DiabetesDetailView.as_view(), name="diabetes_detail"),
-
     path('hairfall/',  HairfallView.as_view(), name='hairfall'),
     path('hairfall_detail/<int:pk>/',HairfallDetailView.as_view(), name="hairfall_detail"),
     path('search/', search_medicines, name='search-medicine'),

@@ -67,20 +67,41 @@
                 <img src="{{ medicine.image.url }}" class="card-img-top" alt="{{ medicine.medicine_name }}">
 
                 {% endif%}
-                {% if medicine.product_image %}
-                <img src="{{ medicine.product_image.url }}" class="card-img-top" alt="{{ medicine.medicine_name }}">
-
-                {% endif %}
+                
                 <div class="card-body">
                     {% if medicine.medicine_name %}
                     <h5 class="card-title">{{ medicine.medicine_name }}</h5>
                     {% endif %}
-                    {% if medicine.product_name %}
-                    <h5 class="card-title">{{ medicine.product_name }}</h5>
-                    {% endif %}
+                    
                     <p id="price" class="card-text">₹{{ medicine.price }}</p>
                     
                     <a href="{% url 'medicine-detail' medicine.id %}" class="btn btn-primary">View Details</a>
+                    
+                </div>
+            </div>
+           
+            </div>
+            {% endfor %}
+
+            {% elif devices %}
+            
+            {% for device in devices %}
+            <div class="col-lg-4">
+                
+            <div class="card medicine-card shadow">
+                
+                {% if device.product_image %}
+                <img src="{{ device.product_image.url }}" class="card-img-top" alt="{{ device.medicine_name }}">
+
+                {% endif %}
+                <div class="card-body">
+                    
+                    {% if device.product_name %}
+                    <h5 class="card-title">{{ device.product_name }}</h5>
+                    {% endif %}
+                    <p id="price" class="card-text">₹{{ device.price }}</p>
+                    
+                    <a href="{% url 'device_details' device.id %}" class="btn btn-primary">View Details</a>
                     
                 </div>
             </div>

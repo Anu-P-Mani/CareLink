@@ -208,19 +208,7 @@ class NutritionDetailView(DetailView):
     context_object_name="medicine"
 
     
-class DiabetesView(TemplateView):
-    template_name = 'medicines/diabetes.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        diabetes_category =   Medicine_Category.objects.get(category_name='Diabetes')    
-        context['medicines'] = Medicine_inventory.objects.filter(category=diabetes_category)
-        return context
-    
-class DiabetesDetailView(DetailView):
-    template_name = "medicines/diabetes_detail.html"  
-    model=Medicine_inventory
-    context_object_name="medicine"    
+ 
     
 class HairfallView(TemplateView):
     template_name = 'medicines/hairfall.html'

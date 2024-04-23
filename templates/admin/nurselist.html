@@ -8,7 +8,7 @@
 </style>
 <div class="container">
     <center>
-        <h1>List of Nurses</h1>
+        <h1>List to be approved</h1>
       </center>
 
     {% if nurse_list %}
@@ -21,7 +21,7 @@
                 <th scope="col">License Number</th>
                 <th scope="col">Address</th>
                 <th scope="col">Phone</th>
-                <th scope="col">Actions</th>
+                <th scope="col" colspan="2">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -38,6 +38,7 @@
                 <td>{{ nurse.address }}</td>
                 <td>{{ nurse.phone }}</td>
                 <td><a href="{% url 'nurse_approval' nurse.user_id %}">approve</a></td>
+                <td><a href="{% url 'removenurse' nurse.user_id %}">delete</a></td>
 
             
             </tr>

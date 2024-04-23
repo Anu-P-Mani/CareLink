@@ -337,3 +337,7 @@ def report_list(request, pk):
         'reports':reports
     }
     return render(request, 'Nurse/report_list_for_user.html', context)
+
+
+def terms_and_coditions(request):
+    return render(request, 'nurse/terms&conditions.html')

@@ -8,6 +8,8 @@ from django.views.generic import CreateView,FormView,ListView,UpdateView,DetailV
 from nurse.models import *
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, get_object_or_404
+
 
 # Create your views here.
 def device_list(request):
@@ -91,4 +93,19 @@ class FeedbackListView(ListView):
     model = Feedback
     template_name = "admin/feedback_list.html"
     context_object_name = 'feedbacks'
+
+def delete_nurse(request, pk):
+    nurse= get_object_or_404(Nurse, pk=pk)
+    nurse.delete()
+    return redirect('nurse_list')
+
+class Listapprovednurse(ListView):
+    model = Nurse
+    template_name = 'admin/approvednurse.html'  
+    context_object_name = 'nurses'
+
+    def get_queryset(self):
+        return Nurse.objects.filter(is_active=True, )
+    
+
 

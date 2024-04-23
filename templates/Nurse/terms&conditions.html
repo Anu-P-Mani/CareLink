@@ -1,0 +1,108 @@
+{% extends 'base3.html' %}
+{% block content %}
+<style>
+    .site-section {
+        padding: 20px;
+        max-width: 800px; /* Set the maximum width */
+        margin:30px auto 30px; /* Center the content horizontally */
+        border: 1px solid #ddd; /* Add a border */
+        border-radius: 5px; /* Optional: Add border radius for rounded corners */
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+        text-align: center; /* Align the heading to the center */
+        margin-bottom: 30px;
+    }
+
+    ol {
+        list-style-type: decimal;
+        padding-left: 20px;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+</style>
+
+<div class="site-section">
+    <h1>Terms & Conditions</h1>
+    <ol>
+        <li>Salary Guarantee
+            <ol>
+                <li>Guaranteed Monthly Compensation
+                    <ul>
+                        <li>Regardless of the actual number of days worked within any given month, all employed nurses
+                            are entitled to receive their full monthly salary. This condition is intended to ensure
+                            financial stability and job security for our staff.
+                        </li>
+                    </ul>
+                </li>
+                <li>Conditions for Salary Guarantee
+                    <ul>
+                        <li>
+                            This salary guarantee is conditional upon the nurse being assigned to at least one active
+                            duty during the month. If the nurse is not assigned or available for work, the guarantee may
+                            not apply, subject to the provisions outlined in Section 3 on Employment Status and
+                            Termination.
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </li>
+        <li>Service Termination by Clients
+            <ol>
+                <li>Notification Requirement for Service Termination
+                    <ul>
+                        <li>
+                            Clients wishing to terminate nursing services must provide a minimum of one week's notice
+                            prior to the intended termination date. This advance notice is crucial to allow adequate
+                            time for administrative adjustments and to ensure the continuity of care for all clients.
+                        </li>
+                    </ul>
+                </li>
+                <li>Consequences of Failing to Provide Notice
+                    <ul>
+                        <li>
+                            Failure to comply with the notification requirement as stated in Section 2.1 may result in
+                            the client being liable for the payment of services that would have been rendered during the
+                            notice period. This is to ensure that nurses are compensated for the scheduled time that
+                            could have been allocated to other assignments.
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </li>
+        <li>Employment Status and Termination
+            <ol>
+                <li>Terms of Employment
+                    <ul>
+                        <li>
+                            Nurses are employed on a monthly basis, with their continuation of employment contingent
+                            upon the fulfillment of their duties and compliance with all applicable policies and
+                            standards as set forth by the employer.
+                        </li>
+                    </ul>
+                </li>
+                <li>Employer Termination Rights
+                    <ul>
+                        <li>
+                            The employer reserves the right to terminate employment under circumstances including, but
+                            not limited to, non-compliance with healthcare regulations, breach of contract, or failure
+                            to meet professional standards. Standard termination policies including notice periods and
+                            severance (if applicable) will be adhered to, in compliance with local labor laws.
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </li>
+    </ol>
+</div>
+{% endblock %}

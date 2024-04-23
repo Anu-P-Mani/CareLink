@@ -208,19 +208,6 @@ class NutritionDetailView(DetailView):
     context_object_name="medicine"
 
     
-class DiabetesView(TemplateView):
-    template_name = 'medicines/diabetes.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        diabetes_category =   Medicine_Category.objects.get(category_name='Diabetes')    
-        context['medicines'] = Medicine_inventory.objects.filter(category=diabetes_category)
-        return context
-    
-class DiabetesDetailView(DetailView):
-    template_name = "medicines/diabetes_detail.html"  
-    model=Medicine_inventory
-    context_object_name="medicine"    
     
 class HairfallView(TemplateView):
     template_name = 'medicines/hairfall.html'
@@ -246,10 +233,10 @@ def search_medicines(request):
     if query:
         medicines = Medicine_inventory.objects.filter(Q(medicine_name__icontains=query) | Q(manufacturer__icontains=query))
         devices = DeviceInformation.objects.filter(product_name__icontains=query)
-        medicines = list(medicines) + list(devices)
+        # medicines = list(medicines) + list(devices)
     else:
         medicines = []
-    return render(request, 'medicines/search_medicine.html', {'medicines': medicines, 'query': query})
+    return render(request, 'medicines/search_medicine.html', {'medicines': medicines, 'devices': devices, 'query': query})
 
 
 def shop_profile(request):

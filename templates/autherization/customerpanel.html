@@ -62,8 +62,8 @@
       <div class="search-wrap">
         <div class="container">
           <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
-          <form action="#" method="post">
-            <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
+          <form action="{% url 'search-medicine' %}" method="GET">
+            <input type="text" class="form-control" name="q" placeholder="Search keyword and hit enter...">
           </form>
         </div>
       </div>
@@ -82,7 +82,7 @@
                 <li class="has-children">
                   <a href="#">Store</a>
                   <ul class="dropdown">
-                    <li><a href="{% url 'listmedicines' %}">Medicines</a></li>
+                    <li><a href="{% url 'listmedicines' %}">Personal Care</a></li>
                     <li><a href="{% url 'device_page' %}">Clinical Devices</a></li>
                 
                 </ul>
@@ -231,11 +231,7 @@
         
           <h3 class="text-dark"><a href="{% url 'nutrition' %}" style="text-decoration: none;">Nutrition & Suppliments</a></h3>
       </div>
-      <div class="col">
-        <a href="{% url 'diabetes' %}"> <img src="{% static 'images/diabetes.webp' %}" alt="Image" style="width: 150px;height: 200px;"></a>
-        
-          <h3 class="text-dark"><a href="{% url 'diabetes' %}" style="text-decoration: none;">Diabetes</a></h3>
-      </div>
+      
       <div class="col">
         <a href="{% url 'hairfall' %}"> <img src="{% static 'images/hair.webp' %}" alt="Image" style="width: 150px;height: 200px;"></a>
         
@@ -375,7 +371,6 @@
           <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
             <h3 class="footer-heading mb-4">Quick Links</h3>
             <ul class="list-unstyled">
-              <li><a href="{% url 'diabetes' %}">Diabetes</a></li>
               <li><a href="{% url 'babycare' %}">Baby Care</a></li>
               <li><a href="{% url 'nutrition' %}">Nutrition</a></li>
               <li><a href="{% url 'beautycare' %}">Beauty &amp; Personal Care</a></li>
