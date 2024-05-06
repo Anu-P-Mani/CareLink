@@ -1,12 +1,10 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render,redirect
+from .models import *
+from .forms import *
 from django.views.generic import CreateView,FormView,ListView,UpdateView,DetailView,TemplateView,View
 from django.urls import reverse_lazy,reverse
 from django.contrib import messages
 from django.utils.decorators import method_decorator
-from medicines.models import Medicine_Category,Medicine_inventory,Expirylist
 from medicines.forms import CategoryCreateForm,AddMedicineForm
 from django.http import HttpResponse
 from datetime import date
@@ -16,11 +14,9 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from clinical_devices.models import *
 from django.db.models import Q
-from .models import Medicine_inventory
-from clinical_devices.models import DeviceInformation 
-from .forms import *
 from datetime import datetime
 
+# Create your views here.
 
 class CategoryCreateView(CreateView,ListView):
 
@@ -72,17 +68,13 @@ class MedicineListView(ListView):
     model=Medicine_inventory
     context_object_name="medicines"
     ordering = ['-created_at']
+    def get_queryset(self):
+        current_date = timezone.now().date()
+        queryset = super().get_queryset().filter(expiry_date__gt=current_date)
+        return queryset
 
 
-
-
-def medicine_list(request):
-    medicines = Medicine_inventory.objects.all()
-    return render(request, 'shopanel.html', {'medicines': medicines})
-
-
-
-                                                       
+                                                      
 
 
 def remove_medicines(request,*args,**kwargs):
@@ -118,7 +110,6 @@ class ExpiredMedicinesView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Filter expired medicines
         context['medicines'] = Medicine_inventory.objects.filter(expiry_date__lt=timezone.now())
         return context
     
@@ -126,32 +117,6 @@ def delete_medicine(request, pk):
     medicine = get_object_or_404(Medicine_inventory, pk=pk)
     medicine.delete()
     return redirect('shoppanel')
-
-
-
-
-# class ShopPanelView(TemplateView):
-#     template_name = 'medicines/shoppanel.html'
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['medicines'] = Medicine_inventory.objects.all()
-#         context['categories'] = Medicine_Category.objects.all()
-#         return context
-        
-      
-# class ShopPanelView(TemplateView):
-#     template_name = 'medicines/shoppanel.html'
-
-#     @method_decorator(login_required)
-#     @method_decorator(never_cache)
-#     def dispatch(self, *args, **kwargs):
-#         return super().dispatch(*args, **kwargs)
-    
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['medicines'] = Medicine_inventory.objects.all()
-#         context['categories'] = Medicine_Category.objects.all()
-#         return context     
 
 
 @login_required
@@ -229,16 +194,12 @@ class HairfallDetailView(DetailView):
     model=Medicine_inventory
     context_object_name="medicine"    
 
-   
-
-
 
 def search_medicines(request):
     query = request.GET.get('q')
     if query:
         medicines = Medicine_inventory.objects.filter(Q(medicine_name__icontains=query) | Q(manufacturer__icontains=query))
         devices = DeviceInformation.objects.filter(product_name__icontains=query)
-        # medicines = list(medicines) + list(devices)
     else:
         medicines = []
     return render(request, 'medicines/search_medicine.html', {'medicines': medicines, 'devices': devices, 'query': query})

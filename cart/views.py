@@ -1,17 +1,12 @@
-from django.shortcuts import render
-from django.contrib import messages
-# Create your views here.
 from .models import *
-from django.shortcuts import redirect, get_object_or_404
-from django.http import Http404
-from django.http import HttpResponseNotFound
-from django.shortcuts import redirect, get_object_or_404, render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import Http404, HttpResponseNotFound
 from django.contrib import messages
 from .models import Medcart, Medicine_inventory
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 
-from django.http import HttpResponseBadRequest
+# Create your views here.
+
 
 @login_required
 def add_to_cart(request, id):
@@ -44,9 +39,7 @@ def cart_view(request):
 
     return render(request, "cart/add_to_cart.html", {'cart': cart, 'total': total})
 
-# 
 
-from django.shortcuts import get_object_or_404
 
 
 def devremove_cart_item(request, id):
@@ -174,7 +167,6 @@ def MedorderForm(request):
 def medorder_confirm_view(request):
     return render(request, "cart/medpayment.html")
 
-from django.http import JsonResponse
 
 def itemcart_remove(request,id):
     try:
@@ -182,7 +174,6 @@ def itemcart_remove(request,id):
         print(med)
     except Medicine_inventory.DoesNotExist:
         raise Http404("Medicine inventory with id {} does not exist".format(id))
-    # product=Medicine_inventory.objects.get(id=id)
     user=request.user
     try:
         cart=Medcart.objects.get(user=user,medicine=med)

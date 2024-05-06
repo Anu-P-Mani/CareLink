@@ -1,19 +1,19 @@
 from django.shortcuts import render, redirect
 from .forms import *
 from medicines.views import *
-# from .forms import CustomerSignUpForm, NurseSignUpForm, ShopSignUpForm
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login
-from django.contrib.auth import authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.core.mail import send_mail
-from django.contrib.auth import logout
 from django.core.validators import RegexValidator
 from django.views import View
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 from nurse.models import *
+
+
+# Create your views here.
 
 
 def customer_signup(request):
@@ -137,9 +137,6 @@ def customer_panel_view(request):
     devices = DeviceInformation.objects.all()[:4]
 
     return render(request, "autherization/customerpanel.html", {'feedbacks': feedbacks, 'medicines': medicines, 'devices': devices})
-
-# def shop_panel_view(request):
-    # return render(request, 'autherization/shoppanel.html')
 
 
 
@@ -265,15 +262,15 @@ def add_feedback(request):
             user = request.user
             feedback = Feedback.objects.create(user=user, comment=comment)
             feedback.save()
-            # return redirect('feedback_success')  # Redirect to a success page
-            return redirect('customerpanel')
+            return redirect('feedback_success')  # Redirect to a success page
     else:
         form = FeedbackForm()
 
     return render(request, 'autherization/add_feedback.html', {'form': form})
 
 
-
+class FeedBackSuccess(TemplateView):
+    template_name = "autherization/feedback_success.html"
         
  
 

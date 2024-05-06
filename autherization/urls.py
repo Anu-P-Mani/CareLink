@@ -26,6 +26,7 @@ urlpatterns = [
     path("customer_update/<int:id>/", customer_update, name="customer_update"),
     
     path("add_feedback", add_feedback, name="add_feedback"),
+    path("feedback_success/", FeedBackSuccess.as_view(), name="feedback_success"),
 
    
 

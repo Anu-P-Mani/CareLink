@@ -5,6 +5,7 @@ from django.views.generic import DetailView
 
 
 # Create your views here.
+
 def clinical_base(request):
     
     return render(request, "clinical_base.html")
@@ -32,9 +33,6 @@ def upload_succes(request):
     return render(request, "clinical_devices/upload_success.html")    
 
 
-# def devicepanel(request):
-#     device_list = DeviceInformation.objects.filter(is_approved=True).order_by('-created_at')
-#     return render(request, "clinical_devices/devicepanel.html", {"device_list": device_list})
 
 def devicepage(request):
     device_list = DeviceInformation.objects.filter(is_approved=True).order_by('-created_at')

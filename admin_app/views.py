@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from nurse.forms import *
 from clinical_devices.models import *
 from django.core.mail import send_mail
@@ -8,10 +8,10 @@ from django.views.generic import CreateView,FormView,ListView,UpdateView,DetailV
 from nurse.models import *
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, get_object_or_404
 
 
 # Create your views here.
+
 def device_list(request):
     device = DeviceInformation.objects.filter(is_approved=False).order_by('-created_at')
     return render(request, "admin/device_list.html", {'device_list': device})
@@ -41,22 +41,9 @@ def device_approval(request, id):
     return redirect('device_list')
 
 
-# class NurseListView(ListView):
-#     model = Nurse
-#     template_name = 'admin/nurselist.html'  
-#     context_object_name = 'nurses'
-
 def nurse_list(request):
     nurse = Nurse.objects.filter(is_active=False)
     return render(request, "admin/nurselist.html", {'nurse_list': nurse})
-
-# class NurseListView(ListView):
-#     model = Nurse
-#     template_name = 'admin/nurselist.html'  
-#     context_object_name = 'nurses'
-
-    # def get_queryset(self):
-    #     return Nurse.objects.filter(is_active=False)
 
 
 def nurse_approval(request,id):

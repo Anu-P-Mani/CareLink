@@ -1,19 +1,15 @@
-from autherization.models import *
-from .forms import *
-from django.contrib.auth.decorators import login_required
-from autherization.views import *
 from django.shortcuts import render,redirect, get_object_or_404
-from django.views.generic import CreateView,FormView,ListView,UpdateView,DetailView,TemplateView,View
+from .forms import *
+from django.views.generic import CreateView,FormView,ListView,UpdateView,DetailView,TemplateView,View,TemplateView,DetailView
 from django.urls import reverse_lazy,reverse
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from autherization.models import *
 from autherization.forms import *
-from django.views.generic import TemplateView,DetailView
+from autherization.views import *
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.views.decorators.cache import never_cache
 from dateutil.relativedelta import relativedelta
-
 from django.http import HttpResponse
 import logging
 from datetime import datetime, timedelta
@@ -59,11 +55,6 @@ def remove_profile(request,*args,**kwargs):
    return redirect("nursepanel")
 
 
-
-
-from django.views.generic import UpdateView
-from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 class NurseProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = Nurse
@@ -121,8 +112,6 @@ class NurseListView(ListView):
         return Nurse.objects.filter(is_active=True, )
     
 
-# 
-    
 
 class NurseDetailView(View):
     def get(self,request,pk):
@@ -173,7 +162,7 @@ class NurseUserList(ListView):
     context_object_name = "nurse_user"
 
     def get_queryset(self):
-    #    nurse=self.request.user
+    # nurse=self.request.user
        queryset = super().get_queryset()
 
        queryset = queryset.filter(nurse=self.request.user.id,is_active=False)
@@ -229,17 +218,6 @@ def nurse_delete(request, id):
 
 
 
-# class ReportCreateView(CreateView):
-#     model = Report
-#     fields = [ 'details']    
-
-#     template_name = 'Nurse/report.html'
-#     success_url = 'nursepanel' 
-
-#     def form_valid(self, form):
-#         # form.instance.user = self.request.user
-#         return super().form_valid(form)
-
 def list_works(request):
     try:
         works = NurseBooking.objects.filter(nurse__user = request.user).order_by('-created_at')
@@ -280,24 +258,6 @@ def nurse_reports(request, pk):
         'reports':reports
     }
     return render(request, 'Nurse/report_list.html', context)
-
-
-
-# class ReportList(ListView):
-#     model = Report
-#     template_name = 'autherization/view_report.html'
-#     context_object_name = "reports"
-
-#     def get_queryset(self):
-#     #    nurse=self.request.user
-#        queryset = super().get_queryset()
-
-#        queryset = queryset.filter(user=self.request.user.id).order_by('-date')
-       
-#        return queryset
-
-
-
 
 
 
