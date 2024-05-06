@@ -8,6 +8,8 @@ from django.db import models
 from autherization.models import *
 from clinical_devices.models import *
 from medicines.models import *
+from django.core.validators import RegexValidator
+
 # Create your models here.
 
 class Divicecart(models.Model):
@@ -30,7 +32,7 @@ class Order(models.Model):
     order_status=models.CharField(max_length=30,default="pending")
     delivary_status=models.CharField(max_length=30,default="pending")
     address=models.CharField(max_length=200)
-    phone=models.IntegerField(null=True, blank=True)
+    phone = models.CharField(max_length=10, validators=[RegexValidator(r'^\d{10}$', message='Phone number must be 10 digits')])
 
 class Medcart(models.Model):
     user = models.ForeignKey(NormalUser, on_delete=models.CASCADE)
@@ -52,7 +54,7 @@ class MedicineOrder(models.Model):
     order_status=models.CharField(max_length=30,default="pending")
     delivary_status=models.CharField(max_length=30,default="pending")
     address=models.CharField(max_length=200)
-    phone=models.IntegerField(null=True, blank=True)
+    phone = models.CharField(max_length=10, validators=[RegexValidator(r'^\d{10}$', message='Phone number must be 10 digits')])
 
 
 
