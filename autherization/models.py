@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
+
 # Create your models here.
 
 
@@ -17,7 +19,7 @@ class NormalUser(AbstractUser):
 
 class Customer(models.Model):
     user = models.OneToOneField(NormalUser, on_delete=models.CASCADE, primary_key=True) 
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(max_length=10, validators=[RegexValidator(r'^\d{10}$', message='Phone number must be 10 digits')])
     address=models.CharField(max_length=200)
     def __str__(self):
         return self.user.username
@@ -26,7 +28,7 @@ class Customer(models.Model):
 class Nurse(models.Model):
     user = models.OneToOneField(NormalUser, on_delete=models.CASCADE, primary_key=True)
     license_number = models.CharField(max_length=20,unique=True)
-    phone = models.IntegerField()
+    phone = models.CharField(max_length=10, validators=[RegexValidator(r'^\d{10}$', message='Phone number must be 10 digits')])
     image = models.ImageField(upload_to='images', null=True, blank=True)
     profile = models.TextField(null=True, blank=True)
     address=models.CharField(max_length=100, null=True, blank=True)
@@ -43,7 +45,7 @@ class Shop(models.Model):
     owner = models.OneToOneField(NormalUser, on_delete=models.CASCADE, null=True,blank=True)
     shop_name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(max_length=10, validators=[RegexValidator(r'^\d{10}$', message='Phone number must be 10 digits')])
     def __str__(self):
         return self.owner.username
 

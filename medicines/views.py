@@ -19,6 +19,7 @@ from django.db.models import Q
 from .models import Medicine_inventory
 from clinical_devices.models import DeviceInformation 
 from .forms import *
+from datetime import datetime
 
 
 class CategoryCreateView(CreateView,ListView):
@@ -167,9 +168,10 @@ class BabyCareMedicinesView(TemplateView):
     template_name = 'medicines/babycare.html'
     
     def get_context_data(self, **kwargs):
+        current_date = datetime.now().date()
         context = super().get_context_data(**kwargs)
         baby_care_category = Medicine_Category.objects.get(category_name='Baby Care')
-        context['medicines'] = Medicine_inventory.objects.filter(category=baby_care_category)
+        context['medicines'] = Medicine_inventory.objects.filter(category=baby_care_category, expiry_date__gte=current_date)
         return context
     
 
@@ -182,9 +184,10 @@ class BeautyCareMedicinesView(TemplateView):
     template_name = 'medicines/beautyandpersonelcare.html'
 
     def get_context_data(self, **kwargs):
+        current_date = datetime.now().date()
         context = super().get_context_data(**kwargs)
         beauty_and_care_category =   Medicine_Category.objects.get(category_name='Beauty & Personal Care')
-        context['medicines'] = Medicine_inventory.objects.filter(category=beauty_and_care_category)
+        context['medicines'] = Medicine_inventory.objects.filter(category=beauty_and_care_category, expiry_date__gte=current_date)
         return context
     
 class BeautyCareDetailView(DetailView):
@@ -197,9 +200,10 @@ class NutritionView(TemplateView):
     template_name = 'medicines/nutrition.html'
 
     def get_context_data(self, **kwargs):
+        current_date = datetime.now().date()
         context = super().get_context_data(**kwargs)
         nutrition_and_care_category =   Medicine_Category.objects.get(category_name='Nutrition & Suppliments')    
-        context['medicines'] = Medicine_inventory.objects.filter(category=nutrition_and_care_category )
+        context['medicines'] = Medicine_inventory.objects.filter(category=nutrition_and_care_category, expiry_date__gte=current_date)
         return context
     
 class NutritionDetailView(DetailView):
@@ -213,9 +217,10 @@ class HairfallView(TemplateView):
     template_name = 'medicines/hairfall.html'
 
     def get_context_data(self, **kwargs):
+        current_date = datetime.now().date()
         context = super().get_context_data(**kwargs)
         hairfall_category =Medicine_Category.objects.get(category_name='Hair Fall')
-        context['medicines'] = Medicine_inventory.objects.filter(category= hairfall_category )
+        context['medicines'] = Medicine_inventory.objects.filter(category= hairfall_category, expiry_date__gte=current_date)
         return context
     
 

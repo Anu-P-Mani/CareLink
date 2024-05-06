@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
 class CustomerSignUpForm(UserCreationForm):
-    phone = forms.CharField(max_length=20)
+    phone = forms.CharField(max_length=10, validators=[RegexValidator(r'^\d{10}$', message='Phone number must be 10 digits')])
 
     class Meta(UserCreationForm.Meta):
         model = NormalUser
@@ -30,7 +30,7 @@ class CustomerSignUpForm(UserCreationForm):
 
 class NurseSignUpForm(UserCreationForm):
     license_number = forms.CharField(max_length=20)
-    phone = forms.IntegerField()
+    phone = forms.CharField(max_length=10, validators=[RegexValidator(r'^\d{10}$', message='Phone number must be 10 digits')])
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter name'}))
     image = forms.ImageField(required=False)  
 
@@ -66,7 +66,7 @@ class NurseSignUpForm(UserCreationForm):
 class ShopSignUpForm(UserCreationForm):
     shop_name = forms.CharField(max_length=100)
     location = forms.CharField(max_length=100)
-    phone = forms.IntegerField()
+    phone = forms.CharField(max_length=10, validators=[RegexValidator(r'^\d{10}$', message='Phone number must be 10 digits')])
 
     class Meta(UserCreationForm.Meta):
         model = NormalUser

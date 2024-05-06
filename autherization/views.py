@@ -123,7 +123,7 @@ def base2(request):
 
 
 def index(request):
-    feedbacks = Feedback.objects.all()[:4]
+    feedbacks = Feedback.objects.all()[::-1][:4]
     medicines = Medicine_inventory.objects.all()[:6]
     devices = DeviceInformation.objects.all()[:4]
     return render(request, "autherization/index.html", {'feedbacks': feedbacks, 'medicines': medicines, 'devices': devices}) 
@@ -132,7 +132,7 @@ def index(request):
 @login_required
 @never_cache
 def customer_panel_view(request):
-    feedbacks = Feedback.objects.all()[:4]
+    feedbacks = Feedback.objects.all()[::-1][:4]
     medicines = Medicine_inventory.objects.all()[:6]
     devices = DeviceInformation.objects.all()[:4]
 
@@ -266,7 +266,7 @@ def add_feedback(request):
             feedback = Feedback.objects.create(user=user, comment=comment)
             feedback.save()
             # return redirect('feedback_success')  # Redirect to a success page
-            return HttpResponse("success")
+            return redirect('customerpanel')
     else:
         form = FeedbackForm()
 
