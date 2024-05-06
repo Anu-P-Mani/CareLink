@@ -11,6 +11,8 @@ from django.views import View
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 from nurse.models import *
+from django.utils.crypto import get_random_string
+
 
 
 # Create your views here.
@@ -169,34 +171,39 @@ def forgot_password(request):
         for user in user_list:
             if user.email == email and user.username == username:
                 user_id = user.id
+                otp = get_random_string(length=6, allowed_chars='1234567890')
+                request.session['otp'] = otp
                 subject = "Password reset"
-                message = f"Hi {username},\n\nSomeone has requested a new password for the following account on CareLink.\nIf you didn't make this request, please ignore this email.\nTo reset your password, Click the following link: http://127.0.0.1:8000/change_password/{user_id}.\n\nThanks for using CareLink."
+                message = f"Hi {username},\n\nSomeone has requested a new password for the following account on CareLink.\nIf you didn't make this request, please ignore this email.\nTo reset your password, please use the following OTP (One-Time Password): {otp}.\n\nThanks for using CareLink."
                 email_from = "carelink30@gmail.com"
                 email_to = email
                 send_mail(subject, message, email_from, [email_to])
-                return redirect(reset_password)
+                return redirect('change_password', user_id)
         else:
             return HttpResponse("Oops somthing went wrong !")
     return render(request, "autherization/forgot_password.html")
 
 
-def reset_password(request):
-    return render(request, "autherization/reset_password.html")
 
 
 def change_password(request, id):
-    a = NormalUser.objects.get(id=id)
+    user = NormalUser.objects.get(id=id)
     if request.method == "POST":
-        p1 = request.POST.get('password1')
-        p2 = request.POST.get('password2')
-        if p1 == p2:
-            a.set_password(p1)
-            a.save()
-            msg = 'Password Changed!'
-            return render(request, 'autherization/success.html', {'msg': msg})
+        otp = request.POST.get('otp')
+        if otp == request.session['otp']:
+            password1 = request.POST.get('password1')
+            password2 = request.POST.get('password2')
+            if password1 == password2:
+                user.set_password(password1)
+                user.save()
+                return redirect("login")
+            
+            else:
+                msg = 'Sorry something went wrong!'
+                return render(request, 'autherization/success.html', {'msg': msg})
         else:
-            msg = 'Sorry something went wrong!'
-            return render(request, 'autherization/success.html', {'msg': msg})
+            msg = "otp doesn't match!"
+            return render(request, 'autherization/success.html', {'msg': msg})   
     return render(request, "autherization/change_password.html")
 
 
