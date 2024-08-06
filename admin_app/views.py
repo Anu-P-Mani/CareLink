@@ -81,6 +81,9 @@ class FeedbackListView(ListView):
     template_name = "admin/feedback_list.html"
     context_object_name = 'feedbacks'
 
+    def get_queryset(self):
+        return super().get_queryset().order_by('-created_at')
+
 def delete_nurse(request, pk):
     nurse= get_object_or_404(Nurse, pk=pk)
     nurse.delete()
@@ -92,7 +95,7 @@ class Listapprovednurse(ListView):
     context_object_name = 'nurses'
 
     def get_queryset(self):
-        return Nurse.objects.filter(is_active=True, )
+        return Nurse.objects.filter(is_active=True)
     
 
 

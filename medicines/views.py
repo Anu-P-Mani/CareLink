@@ -194,6 +194,21 @@ class HairfallDetailView(DetailView):
     model=Medicine_inventory
     context_object_name="medicine"    
 
+class DiabetesView(TemplateView):
+    template_name = 'medicines/diabetes.html'
+
+    def get_context_data(self, **kwargs):
+        current_date = datetime.now().date()
+        context = super().get_context_data(**kwargs)
+        hairfall_category =Medicine_Category.objects.get(category_name='Diabetes')
+        context['medicines'] = Medicine_inventory.objects.filter(category= hairfall_category, expiry_date__gte=current_date)
+        return context
+    
+
+class DiabetesDetailView(DetailView):
+    template_name = "medicines/diabetes_detail.html"  
+    model=Medicine_inventory
+    context_object_name="medicine"  
 
 def search_medicines(request):
     query = request.GET.get('q')

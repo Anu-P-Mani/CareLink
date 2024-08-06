@@ -33,6 +33,10 @@ urlpatterns = [
 
     path('hairfall/',  HairfallView.as_view(), name='hairfall'),
     path('hairfall_detail/<int:pk>/',HairfallDetailView.as_view(), name="hairfall_detail"),
+
+    path('diabetes/',  DiabetesView.as_view(), name='diabetes'),
+    path('diabetes_detail/<int:pk>/',DiabetesDetailView.as_view(), name="diabetes_detail"),
+
     path('search/', search_medicines, name='search-medicine'),
     path('medicines/shop_profile/', shop_profile, name="shop_profile"),
     path('medicines/update/<int:pk>',ShopProfileUpdateView.as_view() , name="updateshop"),
