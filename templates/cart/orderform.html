@@ -1,87 +1,303 @@
 {% extends 'base3.html' %}
+{% load static %}
 {% block content %}
 
 <style>
-  .myform {
-        background-color: aliceblue;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    body {
+        /* display: flex; */
+        justify-content: safe;
+        align-items: auto;
+        height: 100vh;
+        margin: 5px;
+    }
+
+    .container {
+        display: flex;
+        width: 300%;
+        height: 80%;
+        border: 1px solid #ccc;
         border-radius: 10px;
-        padding: 30px;
-        margin-top: 50px;
+        overflow: hidden;
+        position: static;
+        align-items: center;
+        border: 2px;
+        border-inline-color: white;
+    }
+
+    .left,
+    .right {
+        flex: 5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .left {
+        display: flex;
+        background-color: #f5f5f5;
+        width: 500px;
+        height: 500px;
+        padding: 60px;
+        /* Reduced padding */
+        overflow-y: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        font-size: 12px;
+        /* Reduced font size */
+    }
+
+    .left h2 {
+        text-align: center;
+        /* Center the main heading */
         width: 100%;
-        transition: all 1.3s ease;
+        margin-bottom: 30px;
     }
-    
-    .form-control {
+
+    .left h3 {
         font-size: 16px;
-        border-radius: 5px;
+        /* Smaller font size for headings */
+        margin-bottom: 8px;
+    }
+
+    .left p {
+        font-size: 12px;
+        /* Smaller font size for paragraphs */
+        margin-bottom: 6px;
+    }
+
+    .right {
+        display: flex;
+        background-color: #ffffff;
+        width: 500px;
+        height: 500px;
+    }
+
+    .visa-card {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        width: 300px;
+        height: 180px;
+        margin-bottom: 20px;
+        background-image: radial-gradient(circle 897px at 9% 80.3%,
+                rgba(55, 60, 245, 1) 0%,
+                rgba(234, 161, 15, 0.9) 100.2%);
+        border-radius: 10px;
+        padding: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        position: relative;
+        gap: 10px;
+    }
+
+    .logoContainer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        height: fit-content;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 18px;
+    }
+
+    .svgLogo {
+        height: 40px;
+        width: auto;
+    }
+
+    .inputstyle::placeholder {
+        color: #fc0505;
+    }
+
+    .inputstyle {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        caret-color: red;
+        font-size: 13px;
+        height: 15px;
+        width: 60px;
+        letter-spacing: 1.5px;
+    }
+
+    .number-container {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #cardNumber {
+        width: 100%;
+        height: 30px;
+    }
+
+    .name-date-cvv-container {
+        width: 100%;
+        height: 45px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .name-wrapper {
+        width: 60%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .expiry-wrapper,
+    .cvv-wrapper {
+        width: 30%;
+        height: fit-content;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cvv-wrapper {
+        width: 50%;
+    }
+
+    #expiry,
+    #cvv {
+        width: 100%;
+    }
+
+    .input-label {
+        font-size: 8px;
+        letter-spacing: 1.5px;
+        color: #e2e2e2;
+        width: 200%;
+        height: 100%;
+    }
+
+    .form-container {
+        background-color: #fff;
         padding: 10px;
-        
-        margin-right: 30px; /* Added margin top to create gap */
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 500px;
+        height: 500px;
     }
-    
-    .btn.btn-primary {
-        background-color: #51eaea;
-      border-color: #51eaea;
-      color: black;
-      margin-top: 30px;
+
+    .form-container input[type="text"] {
+        width: 100%;
+        padding: 2px;
+        margin: 5px 0;
+        border-radius: 5px;
+        font-size: 16px;
     }
-    .btn.btn-primary:hover  {
-        background: transparent;
-      color: #51eaea;
-      border-color: #51eaea;
+
+    .form-container input[type="text"]:focus {
+        border-color: #007BFF;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .form-container button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .form-container button:hover {
+        background-color: #0056b3;
     }
 </style>
+</head>
 
-
-    <center>
-        <h2>Enter your details here!</h2>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <form method="post" class="myform" onsubmit="return validateForm()">
+<body>
+    <div class="container" style="height: 450px;">
+        <div class="left">
+            <h2>Terms&Conditions</h2>
+            <h3>Order Acceptance and Cancellation</h3>
+            <p>We reserve the right to refuse or cancel any order for any reason. We may also require additional
+                verifications or information before accepting any order.</p>
+            <h3>Product Availability</h3>
+            <p>All products are subject to availability. We reserve the right to limit the quantity of products we
+                supply, supply only part of an order, or divide orders.</p>
+            <h3>Pricing and Payment</h3>
+            <p>All prices are listed in [Currency] and are inclusive/exclusive of applicable taxes. Payment can be made
+                through various payment methods available on our website.</p>
+        </div>
+        <div class="right d-flex">
+            <div class="form-container">
+                <form action="" method="post">
                     {% csrf_token %}
-                    <div class="mb-4 row">
-                        <label class="form-label col-sm-3">Address</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control border-color" name="address" placeholder="Enter address">
+                    <div class="visa-card">
+                        <div class="logoContainer">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="23" height="23"
+                                viewBox="0 0 48 48" class="svgLogo">
+                                <path fill="#ff9800" d="M32 10A14 14 0 1 0 32 38A14 14 0 1 0 32 10Z"></path>
+                                <path fill="#d50000" d="M16 10A14 14 0 1 0 16 38A14 14 0 1 0 16 10Z"></path>
+                                <path fill="#ff3d00"
+                                    d="M18,24c0,4.755,2.376,8.95,6,11.48c3.624-2.53,6-6.725,6-11.48s-2.376-8.95-6-11.48 C20.376,15.05,18,19.245,18,24z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="number-container">
+                            <label class="input-label" for="cardNumber">CARD NUMBER</label>
+                            <input class="inputstyle" id="cardNumber" placeholder="XXXX XXXX XXXX" name="Acc_number"
+                                type="text" maxlength="12" />
+                        </div>
+                        <div class="name-date-cvv-container">
+                            <div class="name-wrapper">
+                                <label class="input-label" for="holderName">CARD HOLDER</label>
+                                <input class="inputstyle" id="holderName" name="card_holder" placeholder="NAME"
+                                    type="text" />
+                            </div>
+                            <div class="expiry-wrapper">
+                                <label class="input-label" for="expiry">VALID THRU</label>
+                                <input class="inputstyle" id="expiry" name="validity" placeholder="MM/YY" type="text"
+                                    maxlength="5" />
+                            </div>
+                            <div class="cvv-wrapper" style="margin-top: 15px;">
+                                <label class="input-label" for="cvv">CVV</label>
+                                <input class="inputstyle" placeholder="***" maxlength="3" id="cvv" name="cvv"
+                                    type="password" />
+                            </div>
                         </div>
                     </div>
-                    <div class="mb-4 row">
-                        <label class="form-label col-sm-3">Phone</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control border-color" name="phone" id="phone" placeholder="Enter phone" pattern="[0-9]{10}" title="Please enter a 10-digit phone number">
-                        </div>
-                    </div>
-                    <div class="mb-4 row">
-                        <label class="form-label col-sm-3">Account number</label>
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control border-color" name="Acc_number" placeholder="Enter account number" required>
-                        </div>
-                    </div>
-                    <div class="mb-3 text-center">
-                        <input type="submit" class="btn btn-primary">
-                    </div>
+                    <input type="text" name="address" placeholder="Address">
+                    <input type="text" name="phone" placeholder="Phone">
+                    <button type="submit">Pay</button>
                 </form>
             </div>
         </div>
     </div>
-    
 
-</center>
-<script>
-    function validateForm() {
-        var phone = document.getElementById("phone").value;
-        var phonePattern = /^\d{10}$/;
+    <script>
+        // Validate expiry date format MM/YY
+        document.getElementById('expiry').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value.slice(0, 5);
+        });
 
-        if (!phonePattern.test(phone)) {
-            alert("Please enter a 10-digit phone number.");
-            return false;
-        }
+        // Validate card number input to only allow digits
+        document.getElementById('cardNumber').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 12);
+        });
 
-        return true;
-    }
-</script>
+        // Validate CVV to only allow digits and limit to 3 characters
+        document.getElementById('cvv').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3);
+        });
+    </script>
 
-{% endblock %}
+    {% endblock %}

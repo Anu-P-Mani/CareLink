@@ -4,6 +4,7 @@ from django.http import Http404, HttpResponseNotFound
 from django.contrib import messages
 from .models import Medcart, Medicine_inventory
 from django.contrib.auth.decorators import login_required
+from django.views.generic import DetailView
 
 # Create your views here.
 
@@ -189,3 +190,16 @@ def itemcart_remove(request,id):
     return redirect('med_cart_view')
 
 
+def order_view(request):
+    user = request.user
+    orders = MedicineOrder.objects.filter(user=user)
+    return render(request, 'cart/order_view.html', {'orders': orders})
+
+class order_details(DetailView):
+    template_name = "cart/order_details.html"
+    model = MedicineOrder
+    context_object_name = "order"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

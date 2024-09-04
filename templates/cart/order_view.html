@@ -1,0 +1,62 @@
+{% extends 'base3.html' %}
+
+{% block content %}
+
+<style>
+    .container {
+        margin-top: 30px;
+    }
+    .device-card {
+        border-radius: 2px; 
+        margin-top: 10px;
+        margin-bottom: 25px; 
+    }
+    .card img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+    .btn.btn-primary {
+        background-color: #51eaea;
+        border-color: #51eaea;
+        color: black;
+    }
+    .btn.btn-primary:hover {
+        background: transparent;
+        color: #51eaea; 
+    }
+    #price {
+        font-size: 15px;
+        color: rgb(16, 220, 16);
+    }
+    .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+</style>
+
+<br>
+<div class="container">
+    {% for order in orders %}
+    <div class="row device-card shadow">
+        <div class="col-md-4">
+            {% if order.medicine.image %}
+            <img src="{{ order.medicine.image.url }}" class="img-fluid" alt="{{ order.medicine.medicine_name }}">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ order.medicine.medicine_name }}</h5>
+                <p id="price" class="card-text">₹ {{ order.medicine.price }}</p>
+                <a href="{% url 'order_details' order.id %}" class="btn btn-primary">Order Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
